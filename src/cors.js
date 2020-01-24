@@ -1,7 +1,7 @@
 const cors = require("cors");
 
 const initializeCors = () => {
-  const whitelist = "localhost:3000";
+  const whitelist = process.env.CORS_WHITELIST.split(',');
   const corsOptions = {
     origin: (origin, callback) => {
       if (whitelist.indexOf(origin) !== -1 || !origin) {
