@@ -9,21 +9,21 @@ const findUserByEmail = ({ email }) => {
   });
 };
 
-const createUser = ({ id, email, givenName, familyName }) => {
+const createUser = ({ email, givenName, familyName }) => {
   return new Promise((resolve, reject) => {
-    UserModel.create({ id, email, givenName, familyName }, (err, user) => {
+    UserModel.create({ email, givenName, familyName }, (err, user) => {
       if (err) reject(err);
       resolve(user);
     });
   });
 };
 
-const findOrCreateUser = ({ id, email, givenName, familyName }) => {
+const findOrCreateUser = ({ email, givenName, familyName }) => {
   return new Promise((resolve, reject) => {
     findUserByEmail({ email })
       .then((user) => {
         if (!user) {
-          createUser({ id, email, givenName, familyName })
+          createUser({ email, givenName, familyName })
             .then((user) => resolve(user))
             .catch((err) => reject(err));
         }
