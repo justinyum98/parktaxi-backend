@@ -1,23 +1,15 @@
 const passport = require('passport');
 const initializeStrategies = require('./strategies');
-
-const scope = [
-  'profile',
-  'email'
-];
+const initializeSerialization = require('./serialize');
+const initializeAuthRoutes = require('./authRoutes');
 
 const initializeAuth = (app) => {
   app.use(passport.initialize());
+  app.use(passport.session());
+
   initializeStrategies(passport);
-
-  passport.serializeUser((user, done) => done(null, user));
-  passport.deserializeUser((user, done) => done(null, user));
-
-  app.get('/auth/google', passport.authenticate('google', { scope }));
-  app.get('/auth/google/callback', passport.authenticate('google'), (req, res) => {
-    console.log('succesfully authenticated');
-    res.redirect(process.env.GOOGLE_OAUTH_SUCCESS_URL)
-  });
+  initializeSerialization(passport);
+  initializeAuthRoutes(app, passport);
 
   return passport;
 };

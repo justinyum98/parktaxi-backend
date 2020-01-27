@@ -9,21 +9,21 @@ const findUserByEmail = ({ email }) => {
   });
 };
 
-const createUser = ({ email, givenName, familyName }) => {
+const createUser = ({ id, email, givenName, familyName }) => {
   return new Promise((resolve, reject) => {
-    UserModel.create({ email, givenName, familyName }, (err, user) => {
+    UserModel.create({ id, email, givenName, familyName }, (err, user) => {
       if (err) reject(err);
       resolve(user);
     });
   });
 };
 
-const findOrCreateUser = ({ email, givenName, familyName }) => {
+const findOrCreateUser = ({ id, email, givenName, familyName }) => {
   return new Promise((resolve, reject) => {
     findUserByEmail({ email })
       .then((user) => {
         if (!user) {
-          createUser({ email, givenName, familyName })
+          createUser({ id, email, givenName, familyName })
             .then((user) => resolve(user))
             .catch((err) => reject(err));
         }
@@ -34,7 +34,7 @@ const findOrCreateUser = ({ email, givenName, familyName }) => {
 };
 
 module.exports = {
-    findUserByEmail,
-    createUser,
-    findOrCreateUser
+  findUserByEmail,
+  createUser,
+  findOrCreateUser
 };

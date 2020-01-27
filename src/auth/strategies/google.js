@@ -7,10 +7,11 @@ const createStrategy = (passport) => (
     clientSecret: process.env.GOOGLE_CLIENT_SECRET,
     callbackURL: process.env.GOOGLE_CALLBACK_URL
   }, (accessToken, refreshToken, profile, done) => {
+    const id = profile.id;
     const email = profile.emails[0].value;
     const givenName = profile.name.givenName;
     const familyName = profile.name.familyName;
-    findOrCreateUser({ email, givenName, familyName })
+    findOrCreateUser({ id, email, givenName, familyName })
       .then((user) => done(null, user))
       .catch((err) => done(err));
   })
