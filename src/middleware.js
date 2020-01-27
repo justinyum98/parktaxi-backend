@@ -9,6 +9,9 @@ const applyMiddleware = (app) => {
   app.use(initializeCors());
   app.use(session({
     secret: process.env.SESSION_SECRET,
+    cookie: {
+      domain: process.env.COOKIE_DOMAIN
+    },
     resave: false,
     saveUninitialized: false
   }));
