@@ -1,19 +1,14 @@
 const express = require("express");
 const router = express.Router();
 
-// Todo Model
-const Spot = require("../../models/Spots");
+const Spot = require("../../models/Spot");
 
-// @route   GET api/todos
-// @desc    Get All Todos
-// @access  Public
+// NEED TO BE TESTED
 router.get("/", (req, res) => {
   Spot.find().then(spot => res.json(spot));
 });
 
-// @route   POST api/todos
-// @desc    Create An Todo
-// @access  Private
+// NEED TO BE TESTED
 router.post("/", (req, res) => {
   const newSpot = new Spot({
     lot: req.body.lot,
@@ -22,6 +17,13 @@ router.post("/", (req, res) => {
   });
 
   newSpot.save().then(spot => res.json(spot));
+});
+
+// NEED TO BE TESTED
+router.delete("/:id", (req, res) => {
+  Spot.findById(req.params.id)
+    .then(spot => spot.remove().then(() => res.json({ success: true })))
+    .catch(err => res.status(404).json({ success: false }));
 });
 
 module.exports = router;
