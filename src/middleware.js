@@ -6,7 +6,9 @@ const { initializeCors } = require("./cors");
 
 const applyMiddleware = app => {
   app.use(express.static("public"));
-  app.use(initializeCors());
+  const cors = initializeCors()
+  app.use(cors);
+  app.options('*', cors());
   app.use(session({
     secret: process.env.SESSION_SECRET,
     cookie: {
