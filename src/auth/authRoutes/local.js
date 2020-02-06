@@ -1,4 +1,5 @@
 const { findUserByEmail, createUser } = require('../../database/dataAccess/user');
+const _ = require('lodash');
 
 const addLocalAuthRoutes = (app, passport) => {
   app.post(
@@ -8,6 +9,7 @@ const addLocalAuthRoutes = (app, passport) => {
       failureRedirect: process.env.LOCAL_LOGIN_FAILURE_URL
     }),
     (req, res) => {
+      console.log('Successfully logged in:', _.get(req, 'user'));
       res.redirect(process.env.LOCAL_LOGIN_SUCCESS_URL);
     }
   );
