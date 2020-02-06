@@ -16,6 +16,7 @@
       "eol-last": "error",
       "sort-imports": "error",
       "comma-dangle": "error",
-      "prefer-arrow-callback": "error"
+      "prefer-arrow-callback": "error",
+      "no-console": "warn"
     }
 }
