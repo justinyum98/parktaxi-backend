@@ -1,8 +1,8 @@
-const express = require("express");
+const express = require('express');
 const router = express.Router();
 
 // Todo Model
-const Spot = require("../../models/Spots");
+const Spot = require('../../database/models/spot');
 
 // @route   GET api/todos
 // @desc    Get All Todos
