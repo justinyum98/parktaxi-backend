@@ -10,10 +10,7 @@ const addLocalAuthRoutes = (app, passport) => {
     }),
     (req, res) => {
       console.log('Successfully logged in:', _.get(req, 'user'));
-      const payload = {
-        email: req.user.email
-      };
-      res.status(200).json(payload);
+      res.status(200);
     }
   );
   app.post('/register', (req, res) => {
