@@ -9,7 +9,8 @@ const initializeCors = () => {
       } else {
         callback(new Error("Not allowed by CORS"));
       }
-    }
+    },
+    credentials: true
   };
 
   return cors(corsOptions);
