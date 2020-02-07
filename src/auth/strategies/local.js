@@ -5,9 +5,8 @@ const createStrategy = () => (
   new LocalStrategy({
     usernameField: 'email',
     passwordField: 'password',
-    passReqToCallback: true,
     session: true
-  }, (req, username, password, done) => {
+  }, (username, password, done) => {
     findUserByEmail({ email: username })
       .then((user) => {
         if (!user) return done(null, false);

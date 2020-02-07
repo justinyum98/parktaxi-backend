@@ -1,11 +1,14 @@
 const { findUserByEmail, createUser } = require('../../database/dataAccess/user');
-const _ = require('lodash');
+const { generateUserJWT } = require('../jwt');
 
 const addLocalAuthRoutes = (app, passport) => {
   app.post('/login', passport.authenticate('local'), (req, res) => {
-    console.log('Successfully logged in:', _.get(req, 'user'));
-    res.status(200).send('Successfully logged in.');
+    const token = generateUserJWT(req.user);
+    res.status(200).json({
+      jwt: token
+    });
   });
+
   app.post('/register', (req, res) => {
     const userData = req.body;
     findUserByEmail({ email: userData.email })
