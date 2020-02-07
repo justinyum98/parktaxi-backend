@@ -1,7 +1,7 @@
 const LocalStrategy = require('passport-local').Strategy;
 const { findUserByEmail } = require('../../database/dataAccess/user');
 
-const createStrategy = (passport) => (
+const createStrategy = () => (
   new LocalStrategy({
     usernameField: 'email',
     passwordField: 'password',

@@ -1,7 +1,7 @@
 const { OAuth2Strategy } = require('passport-google-oauth');
 const { findOrCreateUser } = require('../../database/dataAccess/user');
 
-const createStrategy = (passport) => (
+const createStrategy = () => (
   new OAuth2Strategy({
     clientID: process.env.GOOGLE_CLIENT_ID,
     clientSecret: process.env.GOOGLE_CLIENT_SECRET,

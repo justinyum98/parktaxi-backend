@@ -8,7 +8,7 @@ const initializeStrategies = (passport) => {
   ];
 
   createStrategies.map((createStrategy) => {
-    const strategy = createStrategy(passport);
+    const strategy = createStrategy();
     passport.use(strategy);
   });
 
