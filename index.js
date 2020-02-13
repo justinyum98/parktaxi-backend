@@ -11,10 +11,10 @@ connectDatabase();
 applyMiddleware(app);
 initializeAuth(app);
 
-app.use('/api/spots', spot);
-app.use('/api/lots', lot);
+app.use('/api/spot', spot);
+app.use('/api/lot', lot);
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
-  console.log(`Listening on ${ PORT }`);
+  console.log(`Listening on ${PORT}`);
 });
