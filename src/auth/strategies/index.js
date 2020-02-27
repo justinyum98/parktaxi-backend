@@ -1,13 +1,9 @@
-const createGoogleStrategy = require('./google');
 const createLocalStrategy = require('./local');
 
 const initializeStrategies = (passport) => {
-  const createStrategies = [
-    createGoogleStrategy,
-    createLocalStrategy
-  ];
+  const createStrategies = [createLocalStrategy];
 
-  createStrategies.map((createStrategy) => {
+  createStrategies.forEach((createStrategy) => {
     const strategy = createStrategy();
     passport.use(strategy);
   });

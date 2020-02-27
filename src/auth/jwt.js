@@ -5,7 +5,7 @@ const generateUserJWT = ({ email, firstName, lastName }) => {
     email,
     firstName,
     lastName
-  }
+  };
   return jwt.sign(payload, process.env.JWT_SECRET, {
     issuer: 'parktaxi',
     audience: 'user',

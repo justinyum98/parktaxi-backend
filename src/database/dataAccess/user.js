@@ -9,22 +9,37 @@ const findUserByEmail = ({ email }) => {
   });
 };
 
-const createUser = ({ email, password, firstName, lastName }) => {
+const createUser = ({
+  email,
+  password,
+  firstName,
+  lastName,
+  validSpotTypes
+}) => {
   return new Promise((resolve, reject) => {
-    UserModel.create({ email, password, firstName, lastName }, (err, user) => {
-      if (err) reject(err);
-      resolve(user);
-    });
+    UserModel.create(
+      { email, password, firstName, lastName, validSpotTypes },
+      (err, user) => {
+        if (err) reject(err);
+        resolve(user);
+      }
+    );
   });
 };
 
-const findOrCreateUser = ({ email, password, firstName, lastName }) => {
+const findOrCreateUser = ({
+  email,
+  password,
+  firstName,
+  lastName,
+  validSpotTypes
+}) => {
   return new Promise((resolve, reject) => {
     findUserByEmail({ email })
       .then((user) => {
         if (!user) {
-          createUser({ email, password, firstName, lastName })
-            .then((user) => resolve(user))
+          createUser({ email, password, firstName, lastName, validSpotTypes })
+            .then((newUser) => resolve(newUser))
             .catch((err) => reject(err));
         }
         resolve(user);

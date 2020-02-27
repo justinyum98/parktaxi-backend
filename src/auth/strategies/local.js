@@ -1,20 +1,15 @@
-const LocalStrategy = require('passport-local').Strategy;
+const { GraphQLLocalStrategy } = require('graphql-passport');
 const { findUserByEmail } = require('../../database/dataAccess/user');
 
-const createStrategy = () => (
-  new LocalStrategy({
-    usernameField: 'email',
-    passwordField: 'password',
-    session: true
-  }, (username, password, done) => {
-    findUserByEmail({ email: username })
+const createStrategy = () =>
+  new GraphQLLocalStrategy((email, password, done) => {
+    findUserByEmail({ email })
       .then((user) => {
         if (!user) return done(null, false);
-        if (user.password != password) return done(null, false);
+        if (user.password !== password) return done(null, false);
         return done(null, user);
       })
-      .catch((err) => done(err))
-  })
-);
+      .catch((err) => done(err));
+  });
 
 module.exports = createStrategy;
