@@ -11,13 +11,19 @@ const typeDefs = gql`
     B
   }
 
-  enum ParkingLot {
+  enum ParkingLotName {
     Pangea
     Gilman
     Hopkins
     Revelle
     Osler
     Sixth
+  }
+
+  ### Inputs ###
+  input LocationInput {
+    lat: Float!
+    lng: Float!
   }
 
   ### Types ###
@@ -35,16 +41,30 @@ const typeDefs = gql`
     token: String
   }
 
+  # Lots #
+  type ParkingLot {
+    name: ParkingLotName!
+    lat: Float!
+    lng: Float!
+  }
+
+  type Location {
+    lat: Float!
+    lng: Float!
+  }
+
   # Ride #
   type PendingRideRequest {
+    requester: User!
+    dateTime: DateTime!
+    location: Location!
     parkingLot: ParkingLot!
     spotType: SpotType!
-    pickUpTime: DateTime!
   }
 
   ### Query ###
   type Query {
-    getAllParkingLots: [ParkingLot!]!
+    parkingLots: [ParkingLot!]!
   }
 
   ### Mutation ###
@@ -57,6 +77,12 @@ const typeDefs = gql`
       password: String!
       validSpotTypes: [SpotType!]!
     ): AuthPayload
+    requestRide(
+      dateTime: DateTime!
+      location: LocationInput!
+      parkingLotName: ParkingLotName!
+      spotType: SpotType!
+    ): PendingRideRequest
   }
 `;
 
